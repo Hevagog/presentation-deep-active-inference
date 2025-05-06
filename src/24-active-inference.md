@@ -1,8 +1,8 @@
 ## Active Inference
 
-Under Active Inference, all cognitive operations are conceptualized as inference over *generative model*- a construct that generates predictions about observations.  
+Under Active Inference, all cognitive operations are conceptualized as inference over **generative model**- a construct that generates predictions about observations.  
 Generative model can be formulated as the joint probability $P(y,x)$ of observations $y$ and hidden states $x$ that generate those observations. 
-The latter are referred to as *hidden states* or *latent variables* as they are not directly observed.  
+The latter are referred to as **hidden states** or **latent variables** as they are not directly observed.  
 This joint probability can be decomposed as follows:
 
 - Prior $P(x)$: prior beliefs about the hidden states- agent's knowledge about hidden states prior to observing sensory data.
@@ -10,7 +10,7 @@ This joint probability can be decomposed as follows:
 
 ---
 
-Single quantity that Active Inference agent minimize through perception and action is variational free energy (VFE). This means performing variational inference, which in turn implies substituting two intractable parameters:
+Single quantity that Active Inference agent minimize through perception and action is **Variational Free Energy** (VFE). This means performing variational inference, which in turn implies substituting two intractable parameters:
 
 - posterior $P(x|y)$
 - log model evidence $P(y)$

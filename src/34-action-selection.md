@@ -9,9 +9,20 @@ P(\pi) = \sigma (-G(\pi)) = \sigma (-\sum_{\tau>t} G(\pi,\tau))
 $$
 Where $\sigma(\cdot)$ is the softmax function.
 
-Again we are faced with computational issues, since computing $G(\pi)$ for all possible policies is computationally expensive, since it involves making an exponentially-increasing number of predictions for $T$ -steps into the future, and computing all the terms in [@eq:mc-sampling-likelihood]. We are going to employ two methods operating in tandem:
+Again we are faced with computational issues, since computing $G(\pi)$ for all possible policies is computationally expensive, since it involves making an exponentially-increasing number of predictions for $T$ -steps into the future, and computing all the terms in [@eq:mc-sampling-likelihood].
 
 ---
+
+To solve computational issues related to the calculation of EFE, we are going to employ two methods operating in tandem:
+<!-- 
+1. **Monte Carlo Tree Search (MCTS)**: 
+2. Amortized inference through **Habitual Neural Network**:  -->
+
+![Efficient EFE calculation](img/ef-efe.svg){height=80%}
+
+---
+
+## Monte Carlo Tree Search (MCTS)
 
 First, we employ Monte Carlo Tree Search (MCTS) to calculate the distribution over actions $P(a_t)$, defined in [@eq:probability-of-action], and control the agent's final action selection.
 
@@ -23,10 +34,16 @@ States that have been explored are stored in the buffer search tree and accessed
 
 ---
 
-An upper confidence bound (UCB) for $G(s_t,a_t)$ is calculated as:
+An *Upper Confidence Bound (UCB)* for $G(s_t,a_t)$ is calculated as:
 $$
 U(s_t,a_t)= \tilde{G}(s_t,a_t) +c_{\text{explore}}\cdot Q_{\phi_a}(a_t|s_t) \frac{1}{1+N(a_t,s_t)} 
 $$ {#eq:ucb}
 where $N(a_t,s_t)$ is the number of times action $a_t$ was explored from state $s_t$, and $c_{\text{explore}}$ is a hyperparameter that controls exploration.
 
 In each round, the EFE of the newly-explored parts of the trajectory is calculated and back-propagated to all visited nodes of the search tree. Additionally, actions are sampled in two ways. Actions from states that have been explored are sampled from $\sigma(U(s_t,a_t))$, while actions from new states are sampled from $Q_{\phi_a}(a_t)$.
+
+---
+
+\vspace{-4em}
+
+![Deep Active Inference Action Selection Process](img/action-selection.svg){width=200%}

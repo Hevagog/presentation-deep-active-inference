@@ -1,6 +1,6 @@
 ## State Transition
 
-**State Transition Model**: $P_{\theta_s}(s_t|s_{t-1},a_{t-1})$ is a key element of the Active Inference framework, which belongs to the agent's generative model.
+**State Transition Model**: $P_{\theta_s}(s_t|s_{t-1},a_{t-1})$
 
 In this model, we take $s_t \backsim \mathcal N(\mu,\sigma^2/\omega_t)$, where the $\mu$ and $\sigma^2$ are respectively the linear and softplus units of a neural network with parameters $\theta_s$ applied to $s_{t-1}$; $\omega_t$ is the *precision factor* modulating the uncertainty on the agent's estimate of the hidden state of the environment.
 
@@ -32,5 +32,17 @@ where $D_t=D_{KL}[Q_{\phi_a}(a_t)||P(a_t)]$ is the Kullback-Leibler divergence b
 
 ## Understanding $\omega_t$
 
-In practice, the effect of $\omega_t$ is to incentivize disentanglement in the latent state representation $s_t$ - the precision factor $\omega_t$ effectively pushes the state encoder $Q_{\phi_s}(s_t)$ to have independent dimensions. 
-As training progresses and the habitual network becomes a better approximation of $P(a_t)$, $\omega_t$ is gradually increased, implementing a natural form of precision annealing.
+- **Precision Modulation:** $\omega_t$ is a precision factor that controls the uncertainty in the agent's estimate of the hidden state. Higher $\omega_t$ means lower uncertainty (higher confidence), and lower $\omega_t$ means higher uncertainty.
+- **Dynamic Adjustment:** $\omega_t$ is dynamically adjusted based on the agent's internal state. Specifically, it depends on the similarity between the agent's habitual policy $Q_{\phi_a}(a_t)$ and the planned policy $P(a_t)$ computed by MCTS. 
+
+![Dynamic Adjustment of Precision Modulation](img/precision-modulation.svg){height=45%}
+
+---
+
+$$D_{t-1} = D_{KL}[Q_{\phi_a}(a_t) \| P(a_t)]$$ 
+
+- **Interpretation of Scenarios:**
+    1. **Low divergence ($D_{t-1}$ is low):** The habitual policy closely matches the planned policy. The agent is confident in its habitual actions, so $\omega_t$ is set **high**, reducing uncertainty in the state estimate.
+    2. **High divergence ($D_{t-1}$ is high):** The habitual policy differs from the planned policy. The agent is less confident, so $\omega_t$ is set **low**, increasing uncertainty in the state estimate.
+- **Effect on Representation:** A higher $\omega_t$ encourages the state encoder $Q_{\phi_s}(s_t)$ to produce more independent (disentangled) latent dimensions, which can simplify learning the transition dynamics.
+- **Precision Annealing:** As training progresses and the habitual network better approximates the planned policy, $\omega_t$ naturally increases. This gradual increase (precision annealing) helps stabilize learning and encourages more structured state representations.

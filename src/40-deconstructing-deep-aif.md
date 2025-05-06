@@ -1,1 +1,0 @@
-# Deconstructing Deep Active Inference

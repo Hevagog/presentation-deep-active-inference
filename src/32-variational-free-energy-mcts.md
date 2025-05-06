@@ -1,6 +1,6 @@
 ## Deriving Variational Free Energy for MCTS
 
-First, we are going to transform aforementioned *Variational Free Energy* $F$ in [@eq:free-energy] into a more tractable form:
+First, we are going to transform aforementioned *Variational Free Energy* $F$ from [@eq:free-energy] into a more tractable form:
 
 $$ 
 F[Q,y] = D_{KL}[Q(x)||P(x|y)]-\ln P(y)
@@ -57,7 +57,8 @@ where:
 $$
 P(a) = \sum_{\pi:a_1=a} P(\pi)
 $$ {#eq:probability-of-action}
-is the summed probability of all policies $\pi$ that start with action $a$. We assume that $s_t$ is normally distributed and $o_t$ is *Bernoulli distributed* (which means that the observation $o_t$​ at time $t$ is a binary outcome (e.g., 0 or 1)), with all parameters given by a neural network, parameterized by $\theta_0$,$\theta_s$ and $\phi_s$ for the observation, transition, and encoder models, respectively. The expectations over $Q_{\phi_s}(s_t)$ are taken via MC sampling, using a single sample from the encoder.  
+is the summed probability of all policies $\pi$ that start with action $a$.  
+We assume that $s_t$ is normally distributed and $o_t$ is *Bernoulli distributed* (which means that the observation $o_t$​ at time $t$ is a binary outcome (e.g., 0 or 1)), with all parameters given by a neural network, parameterized by $\theta_0$,$\theta_s$ and $\phi_s$ for the observation, transition, and encoder models, respectively. The expectations over $Q_{\phi_s}(s_t)$ are taken via MC sampling, using a single sample from the encoder.  
 
 <!-- $$
 D_{KL}[Q_\phi(s_t)||P(s_t|o_t)] = \int_{s_t} Q_\phi(s_t) \ln \frac{Q_\phi(s_t)}{P(s_t|o_t)} ds_t

@@ -1,13 +1,20 @@
-## Expected Free Energy EFE
+## Expected Free Energy (EFE)
 
-Now, let's consider EFE. At time step $t$ and for a time horizon up to time $T$, EFE is defined as:
+At time step $t$ and for a time horizon up to $T$, the expected free energy is:
 $$
-G(\pi) = \sum_{\tau=t}^T G(\tau,\pi) = \sum_{\tau=t}^T E_{\tilde{Q}} [\log Q(s_\tau,\theta|\pi) - \log \tilde{P}(o_\tau,s_\tau,\theta|\pi)]
+G(\pi) = \sum_{\tau=t}^T G(\pi, \tau) = \sum_{\tau=t}^T \mathbb{E}_{\tilde{Q}} \left[ \log Q(s_\tau, \theta|\pi) - \log \tilde{P}(o_\tau, s_\tau, \theta|\pi) \right]
 $$ {#eq:t-expected-free-energy}
-where $\tilde{Q} = Q(o_\tau,s_\tau,\theta|\pi) = Q(\theta|\pi)Q(s_\tau|\theta,\pi)Q(o_\tau|s_\tau,\theta,\pi)$ and $\tilde{P} = P(o_\tau,s_\tau,\theta|\pi) = P(o_\tau|\pi)Q(s_\tau|o_\tau)P(\theta|s_\tau,\theta,o_\tau)$
+
+where:
+
+- $\tilde{Q} = Q(o_\tau, s_\tau, \theta|\pi) = Q(\theta|\pi) Q(s_\tau|\theta, \pi) Q(o_\tau|s_\tau, \theta, \pi)$ is the variational posterior,
+- $\tilde{P} = P(o_\tau, s_\tau, \theta|\pi) = P(o_\tau|s_\tau, \theta) P(s_\tau|\theta, \pi) P(\theta|\pi)$ is the generative model.
 
 ---
 
+### Decomposition of EFE
+
+At each time step $\tau$:
 $$
 \begin{aligned}
 G(\pi, \tau) = &-\mathbb{E}_{\tilde{Q}}[\log P(o_{\tau}|\pi)]  \\
@@ -16,7 +23,10 @@ G(\pi, \tau) = &-\mathbb{E}_{\tilde{Q}}[\log P(o_{\tau}|\pi)]  \\
 \end{aligned}
 $$ {#eq:efe-time-step}
 
-where $P(o_\tau|s_\tau,\theta)$ is the likelihood mapping also called a *Generative Model*, and $G(\pi,\tau)$ is the expected free energy at time $\tau$.
+where:
+
+- $P(o_\tau|s_\tau,\theta)$ is the likelihood mapping also called a *Generative Model*,
+- $G(\pi,\tau)$ is the expected free energy at time $\tau$.
 
 ---
 
@@ -54,11 +64,11 @@ $$
 $$ {#eq:tendency}
 
 - Tendency of Active Inference agents to reduce their uncertainty about model parameters via new observations.
-- Referred to as *active learning*, *novelty* or *curiostiy* in the literature.
+- Referred to as *active learning*, *novelty* or *curiosity* in the literature.
 
 ## MC Sampling to the rescue
 
-Sadly, the second and the third term in the EFE are intractable. Therefore, we will use *Monte Carlo* (MC) sampling to approximate the intractable terms.
+Sadly, the second and the third term in the EFE ([@eq:efe-time-step]) are intractable. Therefore, we will use *Monte Carlo* (MC) sampling to approximate the intractable terms.
 
 $$
 G(\pi, \tau) = - \mathbb{E}_{Q(\theta|\pi)Q(s_{\tau}|\theta, \pi)Q(o_{\tau}|s_{\tau}, \theta, \pi)} [\log P(o_{\tau}|\pi)]
@@ -74,4 +84,4 @@ $$ {#eq:mc-c}
 
 ---
 
-![ulala](img/EFE-calc.svg){width=50%}
+![Relevant quantities for the calculation of EFE $G$, computed by simulating the future using the generative model and ancestral sampling. Where appropriate, expectations are taken with a single MC sample.](img/EFE-calc.svg){width=50%}
