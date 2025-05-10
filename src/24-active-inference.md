@@ -5,8 +5,8 @@ Generative model can be formulated as the joint probability $P(y,x)$ of observat
 The latter are referred to as **hidden states** or **latent variables** as they are not directly observed.  
 This joint probability can be decomposed as follows:
 
-- Prior $P(x)$: prior beliefs about the hidden states- agent's knowledge about hidden states prior to observing sensory data.
-- Latter $P(y|x)$: likelihood of the observations given the hidden states- agent's knowledge of how observations are generated from states.
+- Prior $P(x)$: **prior beliefs** about the hidden states- agent's knowledge about hidden states prior to observing sensory data.
+- Latter $P(y|x)$: **likelihood of the observations** given the hidden states- agent's knowledge of how observations are generated from states.
 
 ---
 

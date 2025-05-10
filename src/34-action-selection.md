@@ -28,7 +28,8 @@ First, we employ Monte Carlo Tree Search (MCTS) to calculate the distribution ov
 
 During the MCTS process, the agent generates a weighted search tree iteratively that is later sampled during action selection.  
 In each MCTS loop, one plausible state-action trajectory -- starting from the current time-step $t$ -- is calculated.  
-For states that are explored for the first time, the distribution $P_\theta(s_{t+1}|s_t,a_t)$ is used.
+
+For states that are explored **for the first time**, the distribution $P_\theta(s_{t+1}|s_t,a_t)$ is used.
 
 States that have been explored are stored in the buffer search tree and accessed during later loops of the same planning process. The weights of the search tree $\tilde{G}(s_t,a_t)$ represent the agent’s best estimation for EFE after taking action $a_t$ in state $s_t$.
 
@@ -40,7 +41,10 @@ U(s_t,a_t)= \tilde{G}(s_t,a_t) +c_{\text{explore}}\cdot Q_{\phi_a}(a_t|s_t) \fra
 $$ {#eq:ucb}
 where $N(a_t,s_t)$ is the number of times action $a_t$ was explored from state $s_t$, and $c_{\text{explore}}$ is a hyperparameter that controls exploration.
 
-In each round, the EFE of the newly-explored parts of the trajectory is calculated and back-propagated to all visited nodes of the search tree. Additionally, actions are sampled in two ways. Actions from states that have been explored are sampled from $\sigma(U(s_t,a_t))$, while actions from new states are sampled from $Q_{\phi_a}(a_t)$.
+In each round, the EFE of the newly-explored parts of the trajectory is calculated and back-propagated to all visited nodes of the search tree. Additionally, actions are sampled in two ways: 
+
+1. Actions from states that have been explored are sampled from $\sigma(U(s_t,a_t))$,
+2. Actions from new states are sampled from $Q_{\phi_a}(a_t)$.
 
 ---
 

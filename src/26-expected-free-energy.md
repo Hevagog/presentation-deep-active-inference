@@ -16,13 +16,13 @@ where $y$ is the observation and $o_\tau$ is the observation at time $\tau$, and
 - Active Inference treats planning and decision-making as a process of inferring what to do, which brings planning into the realm of Bayesian inference.  
 - In active inference, agents choose an action given by their EFE. In particular, any given action is selected with a probability proportional to the accumulated negative EFE of the corresponding policies $G(\pi)$.
 
----
+## Expected Free Energy (EFE) 
 
 We define **Expected Free Energy** $G$ for a policy $\pi$ as:
 $$
 G(\pi)=\sum_{\tau=t+1}^T G_\tau(\pi) %= \sum_{\tau =t+1}^T E_{P(o_\tau|s_\tau)Q(s_\tau|\pi)} [\ln Q(s_\tau|\pi)-\ln P(o_\tau|s_\tau)]
 $$ {#eq:expected-free-energy}
-where $P(o_\tau|s_\tau)$ is the likelihood mapping also called a **Generative Model**, and $G_\tau(\pi)$ is the expected free energy at time $\tau$.  
+where $G_\tau(\pi)$ is the expected free energy at time $\tau$.  
 
 ---
 
@@ -35,7 +35,7 @@ G_\tau(\pi) &= \mathbb{E}_{P(o_\tau|s_\tau) Q(s_\tau|\pi)} [\ln Q(s_\tau|\pi) - 
 &= \underbrace{D_{\text{KL}} [Q(s_\tau|\pi) \| Q(s_\tau)]}_{\text{Epistemic Value (Information Gain)}} - \underbrace{\mathbb{E}_{P(o_\tau|s_\tau) Q(s_\tau|\pi)} [\ln P(o_\tau)]}_{\text{Extrinsic Value (Log Preference)}}
 \end{aligned}
 $$ {#eq:efe-decomposition}
-where $Q$ is the approximate posterior (variational/recognition distribution), parameterized by $\phi$; $P$ is the generative model; $\mathbb{E}_{P(o_\tau|s_\tau) Q(s_\tau|\pi)}$ is the expectation over the joint distribution of observations and hidden states, which captures the agent's predictions about future observations and states when following a specific policy.
+where $Q$ is the **approximate posterior** (variational/recognition distribution), parameterized by $\phi$; $P$ is the **generative model**; $\mathbb{E}_{P(o_\tau|s_\tau) Q(s_\tau|\pi)}$ is the expectation over the joint distribution of observations and hidden states, which captures the agent's predictions about future observations and states when following a specific policy.
 
 ---
 

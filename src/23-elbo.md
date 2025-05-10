@@ -4,7 +4,7 @@
 
 Represents a lower bound on the marginal log-likelihood (or evidence) of the observed data.  
 As earlier mentioned, the goal of variational inference is to put forward a family of distributions and then find the one that is closest to the target.  
-For the measure of closeness, we can use the Kullback-Leibler divergence (KL divergence) defined as average difference between two log probabilities:
+For the measure of closeness, we can use the **Kullback-Leibler** divergence (KL divergence) defined as average difference between two log probabilities:
 $$D_{KL}[Q(x)||P(x)] \triangleq E_{Q(x)} [\ln Q(x) - \ln P(x)]$$ {#eq:kl-divergence}  
 where $E$ indicates average or expectation.
 

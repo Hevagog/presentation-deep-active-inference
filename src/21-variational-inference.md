@@ -19,4 +19,5 @@ We condition our observations on some variables we don't know. Therefore, the pr
 
 Unfortunately, this integral is often intractable because it is performed over the whole latent space, which is impractical when latent variables are continuous.  
 
-Another issue is how to obtain function that transforms $p(z)\rightarrow p(x)$. For this one could use a neural network with parameters $\theta$ to approximate distribution $p(x|z)$, which gives us $p_\theta(x|z)$.
+Another challenge is determining a function that maps $p(z)$ to $p(x)$.  
+To address this, we can use a **neural network** with parameters $\theta$ to approximate the distribution $p(x|z)$, resulting in $p_\theta(x|z)$.

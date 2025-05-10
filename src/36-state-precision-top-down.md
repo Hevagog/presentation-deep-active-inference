@@ -32,7 +32,7 @@ where $D_t=D_{KL}[Q_{\phi_a}(a_t)||P(a_t)]$ is the Kullback-Leibler divergence b
 
 ## Understanding $\omega_t$
 
-- **Precision Modulation:** $\omega_t$ is a precision factor that controls the uncertainty in the agent's estimate of the hidden state. Higher $\omega_t$ means lower uncertainty (higher confidence), and lower $\omega_t$ means higher uncertainty.
+- **Precision Modulation:** $\omega_t$ is a precision factor that controls the uncertainty in the agent's estimate of the hidden state.
 - **Dynamic Adjustment:** $\omega_t$ is dynamically adjusted based on the agent's internal state. Specifically, it depends on the similarity between the agent's habitual policy $Q_{\phi_a}(a_t)$ and the planned policy $P(a_t)$ computed by MCTS. 
 
 ![Dynamic Adjustment of Precision Modulation](img/precision-modulation.svg){height=45%}
